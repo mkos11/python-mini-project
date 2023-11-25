@@ -1,42 +1,50 @@
 import turtle as t
 import random as rd
 
-t.bgcolor('lightgreen')  # Changed background color
+# Set up the screen
+t.bgcolor('lightgreen')
+t.title('Snake Game')
+t.setup(width=600, height=600)
+t.tracer(0)
 
+# Snake head
 caterpillar = t.Turtle()
 caterpillar.shape('square')
 caterpillar.speed(0)
 caterpillar.penup()
 caterpillar.hideturtle()
 
-leaf = t.Turtle()
+# Leaf shape
 leaf_shape = ((0, 0), (14, 2), (18, 6), (20, 20), (6, 18), (2, 14))
 t.register_shape('leaf', leaf_shape)
+
+# Leaf
+leaf = t.Turtle()
 leaf.shape('leaf')
-leaf.color('darkgreen')  # Changed leaf color
+leaf.color('darkgreen')
 leaf.penup()
 leaf.hideturtle()
 leaf.speed()
 
-game_started = False
+# Text display
 text_turtle = t.Turtle()
 text_turtle.write('Press SPACE to start', align='center', font=('Arial', 18, 'bold'))
 text_turtle.hideturtle()
 
+# Score display
 score_turtle = t.Turtle()
 score_turtle.hideturtle()
 score_turtle.speed(0)
 
+# Functions
 def outside_window():
-    left_wall = -t.window_width() / 2
-    right_wall = t.window_width() / 2
-    top_wall = t.window_height() / 2
-    bottom_wall = -t.window_height() / 2
+    left_wall, right_wall = -t.window_width() / 2, t.window_width() / 2
+    top_wall, bottom_wall = t.window_height() / 2, -t.window_height() / 2
     x, y = caterpillar.pos()
     return x < left_wall or x > right_wall or y > top_wall or y < bottom_wall
 
 def game_over():
-    caterpillar.color('red')  # Changed color when game over
+    caterpillar.color('red')
     leaf.color('red')
     t.penup()
     t.hideturtle()
@@ -45,10 +53,9 @@ def game_over():
 def display_score(current_score):
     score_turtle.clear()
     score_turtle.penup()
-    x = t.window_width() / 2 - 70
-    y = t.window_height() / 2 - 70
+    x, y = t.window_width() / 2 - 20, t.window_height() / 2 - 40
     score_turtle.setpos(x, y)
-    score_turtle.write(str(current_score), align='right', font=('Arial', 40, 'bold'))
+    score_turtle.write(f'Score: {current_score}', align='right', font=('Arial', 16, 'normal'))
 
 def place_leaf():
     leaf.hideturtle()
@@ -65,8 +72,7 @@ def start_game():
     score = 0
     text_turtle.clear()
 
-    caterpillar_speed = 2
-    caterpillar_length = 3
+    caterpillar_speed, caterpillar_length = 2, 3
     caterpillar.shapesize(1, caterpillar_length, 1)
     caterpillar.showturtle()
     display_score(score)
@@ -100,11 +106,14 @@ def move_right():
 def restart_game():
     start_game()
 
+# Keyboard bindings
 t.onkey(start_game, 'space')
 t.onkey(restart_game, 'Up')
 t.onkey(move_up, 'Up')
 t.onkey(move_right, 'Right')
 t.onkey(move_down, 'Down')
 t.onkey(move_left, 'Left')
+
+# Main game loop
 t.listen()
 t.mainloop()
