@@ -4,7 +4,7 @@ import random as rd
 t.bgcolor('yellow')
 
 caterpillar = t.Turtle()
-caterpillar.shape('square')
+caterpillar.shape('circle')
 caterpillar.speed(0)
 caterpillar.penup()
 caterpillar.hideturtle()
