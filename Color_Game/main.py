@@ -10,7 +10,7 @@ def next_colour():
     global score, timeleft
 
     if timeleft > 0:
-        user_input = e.get().lower()
+        user_input = e.get().lower() 
         correct_color = colours[1].lower()
 
         if user_input == correct_color:
